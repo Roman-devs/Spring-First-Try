@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Student {
 
-    String lastName = "Mueller";
-    String firstName = "Hans";
+    String lastName;
+    String firstName;
 
     public Student(String lastName, String firstName) {
         this.lastName = lastName;
