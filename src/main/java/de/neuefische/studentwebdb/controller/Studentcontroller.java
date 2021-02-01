@@ -1,12 +1,10 @@
 package de.neuefische.studentwebdb.controller;
 
+import de.neuefische.studentwebdb.model.Teacher;
 import de.neuefische.studentwebdb.service.StudentsService;
 import de.neuefische.studentwebdb.model.Student;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -14,13 +12,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("student")
-
 public class Studentcontroller {
     StudentsService studentsService = new StudentsService();
 
     @GetMapping
-    public List<Student> getStudentList(){
-        return studentsService.getStudentList();
+    public List<Student> getStudentList(@RequestParam Optional<String> search){
+        return studentsService.getStudentList(search.orElse(""));
     }
 
     @GetMapping("{id}")
@@ -30,5 +27,9 @@ public class Studentcontroller {
         } throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Not Found!!!");
     }
 
+    @PutMapping
+    public Student addStudent(@RequestBody Student student){
+        return studentsService.addStudent(student);
+    }
 
 }

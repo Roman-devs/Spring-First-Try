@@ -11,15 +11,24 @@ import java.util.Optional;
 @Service
 public class StudentsService {
 
+
+    List<Student> list = new ArrayList<>(List.of(
+        new Student("Knickknack", "Horst",2),
+        new Student("Mueller", "Peter",1),
+        new Student("Dafoe", "Willem",3))
+    );
+
+
+    List<Teacher> list2 = new ArrayList<>(List.of(
+        new Teacher("Knick", "Wilhelm",1),
+        new Teacher("Knack", "Knick",2),
+        new Teacher("Back", "Knackund",3))
+    );
+
+
+
     public Optional<Teacher> getTeacherById(int id){
-        List<Teacher> list = new ArrayList<>();
-        Teacher teacher1 =  new Teacher("Knick", "Wilhelm",1);
-        Teacher teacher2 =  new Teacher("Knack", "Knick",2);
-        Teacher teacher3 =  new Teacher("Back", "Knackund",3);
-        list.add(teacher1);
-        list.add(teacher2);
-        list.add(teacher3);
-        for (Teacher teacher : list) {
+        for (Teacher teacher : list2) {
             if (teacher.getId() == id){
                 return Optional.of(teacher);
             }
@@ -27,13 +36,6 @@ public class StudentsService {
     }
 
     public Optional<Student> getStudentById(int id){
-        List<Student> list = new ArrayList<>();
-        Student student1 =  new Student("Knickknack", "Horst",2);
-        Student student2 =  new Student("Mueller", "Peter",1);
-        Student student3 =  new Student("Dafoe", "Willem",3);
-        list.add(student1);
-        list.add(student2);
-        list.add(student3);
         for (Student student : list){
             if(student.getId() == id){
                 return Optional.of(student);
@@ -42,25 +44,33 @@ public class StudentsService {
         return Optional.empty();
     }
 
-    public List<Teacher> getTeacherList(){
-        List<Teacher> list = new ArrayList<>();
-        Teacher teacher1 =  new Teacher("Knick", "Wilhelm",1);
-        Teacher teacher2 =  new Teacher("Knack", "Knick",2);
-        Teacher teacher3 =  new Teacher("Back", "Knackund",3);
-        list.add(teacher1);
-        list.add(teacher2);
-        list.add(teacher3);
-        return list;
+    public List<Teacher> getTeacherList(String search){
+        List<Teacher> result = new ArrayList<>();
+        for (Teacher teacher : list2) {
+            if(teacher.getFirstName().contains(search)){
+                result.add(teacher);
+            }
+        } return result;
     }
 
-    public List<Student> getStudentList(){
-        List<Student> list = new ArrayList<>();
-        Student student1 =  new Student("Knickknack", "Horst",2);
-        Student student2 =  new Student("Mueller", "Peter",1);
-        Student student3 =  new Student("Dafoe", "Willem",3);
-        list.add(student1);
-        list.add(student2);
-        list.add(student3);
-        return list;
+    public List<Student> getStudentList(String search){
+        List<Student> result = new ArrayList<>();
+        for (Student student : list) {
+           if(student.getFirstName().contains(search)){
+               result.add(student);
+           }
+        } return result;
     }
+
+    public Student addStudent(Student student) {
+        list.add(student);
+        return student;
+    }
+
+    public Teacher addTeacher(Teacher teacher){
+        list2.add(teacher);
+        return teacher;
+    }
+
+
 }
