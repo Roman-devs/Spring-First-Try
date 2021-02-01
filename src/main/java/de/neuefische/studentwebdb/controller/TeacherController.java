@@ -1,26 +1,30 @@
 package de.neuefische.studentwebdb.controller;
 
-import model.Teacher;
+import de.neuefische.studentwebdb.model.Teacher;
+import de.neuefische.studentwebdb.service.StudentsService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("teacher")
 public class TeacherController {
+
+    StudentsService studentsService = new StudentsService();
+
     @GetMapping
     public List<Teacher> getTeacher(){
-        List<Teacher> list = new ArrayList<>();
-        Teacher teacher1 =  new Teacher("Knick", "Wilhelm");
-        Teacher teacher2 =  new Teacher("Knack", "Knick");
-        Teacher teacher3 =  new Teacher("Back", "Knackund");
-        list.add(teacher1);
-        list.add(teacher2);
-        list.add(teacher3);
-        return list;
+        return studentsService.getTeacherList();
+    }
+
+    @GetMapping("{id}")
+    public Optional<Teacher> getTeacherById(@PathVariable int id){
+        return studentsService.getTeacherById(id);
     }
 
 }
