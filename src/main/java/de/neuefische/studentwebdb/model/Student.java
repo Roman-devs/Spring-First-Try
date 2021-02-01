@@ -1,23 +1,25 @@
-package model;
+package de.neuefische.studentwebdb.model;
 
 import java.util.Objects;
 
-public class Teacher {
+public class Student {
 
     String lastName;
     String firstName;
+    int id;
 
-    public Teacher(String lastName, String firstName) {
+    public Student(String lastName, String firstName, int id) {
         this.lastName = lastName;
         this.firstName = firstName;
+        this.id = id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Teacher teacher = (Teacher) o;
-        return Objects.equals(lastName, teacher.lastName) && Objects.equals(firstName, teacher.firstName);
+        Student student = (Student) o;
+        return Objects.equals(lastName, student.lastName) && Objects.equals(firstName, student.firstName);
     }
 
     @Override
@@ -39,5 +41,13 @@ public class Teacher {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
